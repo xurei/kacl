@@ -23,12 +23,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - some old stuff
 - bad code
 
-## [0.3.0] - 2016-12-03
+## [v0.3.0] - 2016-12-03
 ### Added
 - This awesome feature
 - More pewpew.
 
-## [0.2.0] - 2015-10-06
+## [v0.2.0] - 2015-10-06
 ### Changed
 - a thingy with some subpoints:
 	- this one
@@ -45,8 +45,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - stack overflow issue solved!
 
 [Unreleased]: https://github.com/myuser/myproject/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/myuser/myproject/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/myuser/myproject/compare/v0.1.0...v0.2.0
+[v0.3.0]: https://github.com/myuser/myproject/compare/v0.2.0...v0.3.0
+[v0.2.0]: https://github.com/myuser/myproject/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/myuser/myproject/compare/v0.0.8...v0.1.0
 `
 
@@ -68,12 +68,12 @@ func TestParse_has_rest(t *testing.T) {
 	buf := bytes.NewBufferString(testLog1)
 	contents, err := Parse(buf)
 	assert.Nil(t, err)
-	rest := `## [0.3.0] - 2016-12-03
+	rest := `## [v0.3.0] - 2016-12-03
 ### Added
 - This awesome feature
 - More pewpew.
 
-## [0.2.0] - 2015-10-06
+## [v0.2.0] - 2015-10-06
 ### Changed
 - a thingy with some subpoints:
 	- this one
@@ -106,13 +106,13 @@ func TestParse_has_changes(t *testing.T) {
 - some issue`,
 		},
 		&Changes{
-			Tag: "0.3.0",
+			Tag: "v0.3.0",
 			Added: `- This awesome feature
 - More pewpew.`,
 			Time: time.Date(2016, 12, 3, 0, 0, 0, 0, time.UTC),
 		},
 		&Changes{
-			Tag: "0.2.0",
+			Tag: "v0.2.0",
 			Changed: `- a thingy with some subpoints:
 	- this one
 	- that one
@@ -144,15 +144,15 @@ func TestParse_has_references(t *testing.T) {
 			BaseURL: "https://github.com/myuser/myproject",
 		},
 		{
-			Tag:     "0.3.0",
-			Raw:     "[0.3.0]: https://github.com/myuser/myproject/compare/v0.2.0...v0.3.0",
+			Tag:     "v0.3.0",
+			Raw:     "[v0.3.0]: https://github.com/myuser/myproject/compare/v0.2.0...v0.3.0",
 			From:    "v0.2.0",
 			To:      "v0.3.0",
 			BaseURL: "https://github.com/myuser/myproject",
 		},
 		{
-			Tag:     "0.2.0",
-			Raw:     "[0.2.0]: https://github.com/myuser/myproject/compare/v0.1.0...v0.2.0",
+			Tag:     "v0.2.0",
+			Raw:     "[v0.2.0]: https://github.com/myuser/myproject/compare/v0.1.0...v0.2.0",
 			From:    "v0.1.0",
 			To:      "v0.2.0",
 			BaseURL: "https://github.com/myuser/myproject",

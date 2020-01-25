@@ -1,6 +1,5 @@
 .PHONY: setup test
 
-TAG=latest
 GO      = go
 
 install:
@@ -29,7 +28,7 @@ build: VERSION ?= latest
 build:
 	GOOS=${GOOS} GOARCH=${GOARCH} ${GO} -o kacl main.go
 
-
+releases: TAG=$(shell git describe --tags $(git rev-list --tags --max-count=1))
 releases:
 	GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -o kacl main.go    && tar czvf kacl-$(TAG)-linux_amd64.tar.gz kacl
 	GOARCH=386   GOOS=linux CGO_ENABLED=0 go build -o kacl main.go    && tar czvf kacl-$(TAG)-linux_386.tar.gz kacl

@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/nicwest/kacl/changelog"
+	"github.com/helstern/kacl/changelog"
 )
 
 func getContents() (*changelog.Contents, bool) {

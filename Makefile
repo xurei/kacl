@@ -26,7 +26,7 @@ build: GOOS ?= linux
 build: GOARCH ?= amd64
 build: VERSION ?= latest
 build:
-	GOOS=${GOOS} GOARCH=${GOARCH} ${GO} -o kacl main.go
+	GOOS=${GOOS} GOARCH=${GOARCH} ${GO} build -o kacl main.go
 
 releases: TAG=$(shell git describe --tags $(git rev-list --tags --max-count=1))
 releases:

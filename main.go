@@ -13,7 +13,7 @@
 
 package main
 
-import "github.com/nicwest/kacl/cmd"
+import "github.com/helstern/kacl/cmd"
 
 func main() {
 	cmd.Execute()

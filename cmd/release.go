@@ -7,7 +7,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 
-	"github.com/nicwest/kacl/changelog"
+	"github.com/helstern/kacl/changelog"
 )
 
 // releaseCmd represents the release command

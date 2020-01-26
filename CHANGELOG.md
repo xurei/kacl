@@ -5,8 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [v0.2.1] - 2020-01-26
 ### Fixed
 - fix imports to point to fork version `github.com/helstern/kacl` instead of `github.com/nicwest/kacl`
+
 
 ## [v0.2.0] - 2020-01-25
 ### Changed
@@ -24,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - additional new lines being added when documenting a new release
 
-[Unreleased]: https://github.com/nicwest/kacl/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/nicwest/kacl/compare/v0.2.1...HEAD
+[v0.2.1]: https://github.com/nicwest/kacl/compare/v0.2.0...v0.2.1
 [v0.2.0]: https://github.com/nicwest/kacl/compare/0.0.1...v0.2.0
 [0.0.1]: https://github.com/nicwest/kacl/compare/TAIL...0.0.1

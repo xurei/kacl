@@ -1,33 +1,14 @@
 package cmd
 
 import (
-	"html/template"
-	"os"
-
 	"github.com/fatih/color"
+	"github.com/helstern/kacl/src/main/golang/changelog"
 	"github.com/spf13/cobra"
+	"os"
+	"strings"
 
-	"github.com/nicwest/kacl/prompt"
+	"github.com/helstern/kacl/src/main/golang/prompt"
 )
-
-type initCmdConfig struct {
-	ProjectURL string
-	InitialTag string
-}
-
-// V1Template is the default keep a change log v1.0.0 template
-const V1Template string = `# Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
-and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-### Added 
-- This CHANGELOG file!
-
-
-[Unreleased]: {{ .ProjectURL }}/compare/{{ .InitialTag }}...HEAD `
 
 // initCmd represents the init command
 var initCmd = &cobra.Command{
@@ -46,12 +27,12 @@ http://keepachangelog.com/en/1.0.0/ format.`,
 			}
 		}
 
-		var cfg initCmdConfig
+		var cfg changelog.InitTemplateData
 
 		prompt.For("Project URL", &cfg.ProjectURL)
 		prompt.ForWithDefault("Initial commit", "0.0.1", &cfg.InitialTag)
 
-		t := template.Must(template.New("version").Parse(V1Template))
+		cfg.ProjectURL = strings.TrimRight(cfg.ProjectURL, " /")
 
 		f, err := os.Create("./CHANGELOG.md")
 		if err != nil {
@@ -59,7 +40,8 @@ http://keepachangelog.com/en/1.0.0/ format.`,
 			return
 		}
 
-		err = t.Execute(f, cfg)
+		err = changelog.Init(f, cfg)
+
 		if err != nil {
 			color.Red(err.Error())
 			return

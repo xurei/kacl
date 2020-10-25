@@ -13,7 +13,7 @@
 
 package main
 
-import "github.com/helstern/kacl/cmd"
+import "github.com/helstern/kacl/src/main/golang/cmd"
 
 func main() {
 	cmd.Execute()

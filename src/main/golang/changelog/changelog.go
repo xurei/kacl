@@ -59,23 +59,6 @@ func (changes *Changes) WriteTo(w io.Writer) (int64, error) {
 	return buf.WriteTo(w)
 }
 
-type Reference struct {
-	Tag     string
-	Raw     string
-	From    string
-	To      string
-	BaseURL string
-}
-
-func (ref *Reference) WriteTo(w io.Writer) (int64, error) {
-	if ref.To != "" && ref.From != "" {
-		n, err := fmt.Fprintf(w, "[%s]: %s/compare/%s...%s\n", ref.Tag, ref.BaseURL, ref.From, ref.To)
-		return int64(n), err
-	}
-	n, err := fmt.Fprintf(w, "%s\n", ref.Raw)
-	return int64(n), err
-}
-
 type Contents struct {
 	Header     string
 	Changes    []*Changes
@@ -88,7 +71,7 @@ type Contents struct {
 var unreleasedRe = regexp.MustCompile(`(?i)^##\s*\[?(unreleased)\]?\s*$`)
 var sectionRe = regexp.MustCompile(`(?i)^###\s(added|changed|deprecated|fixed|removed|security)\s*$`)
 var changeRe = regexp.MustCompile(`(?i)^##\s*\[?(v?[0-9.]+)\]?\s*-?\s*([0-9\-]+)?\s*$`)
-var changeRefRe = regexp.MustCompile(`(?i)^\[([^\]]+)\]:\s*(.*)/compare/(.*)\.\.\.(.*)$`)
+var changeRefRe = regexp.MustCompile(`(?i)^\[([^\]]+)\]:\s*(.*)/compare/(.*)(\.\.\.|%0D)(.*)$`)
 var refRe = regexp.MustCompile(`(?i)^\[([^\]]+)\]:\s*(.*)$`)
 
 func Parse(r io.Reader) (*Contents, error) {
@@ -168,13 +151,7 @@ func Parse(r io.Reader) (*Contents, error) {
 		}
 
 		if isChangeRef {
-			ref := Reference{
-				Tag:     cr[1],
-				Raw:     cr[0],
-				BaseURL: cr[2],
-				From:    cr[3],
-				To:      cr[4],
-			}
+			ref := NewReferenceFromRegexp(cr)
 			contents.Refs = append(contents.Refs, ref)
 		}
 
